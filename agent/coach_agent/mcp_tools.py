@@ -24,27 +24,20 @@ def get_mongodb_mcp_toolset():
               "PyMongo tools remain available.", file=sys.stderr)
         return None
     try:
-        from google.adk.tools.mcp_tool.mcp_toolset import McpToolset
-        try:  # ADK >= 1.x
-            from google.adk.tools.mcp_tool.mcp_session_manager import StdioConnectionParams
-            from mcp import StdioServerParameters
-            conn = StdioConnectionParams(
-                server_params=StdioServerParameters(
-                    command="npx",
-                    args=["-y", "mongodb-mcp-server@latest", "--readOnly"],
-                    env={"MDB_MCP_CONNECTION_STRING": uri},
-                )
-            )
-            return McpToolset(connection_params=conn)
-        except ImportError:  # older ADK API
-            from google.adk.tools.mcp_tool.mcp_toolset import StdioServerParameters as SSP
-            return McpToolset(
-                connection_params=SSP(
-                    command="npx",
-                    args=["-y", "mongodb-mcp-server@latest", "--readOnly"],
-                    env={"MDB_MCP_CONNECTION_STRING": uri},
-                )
-            )
+        from google.adk.tools.mcp_tool.mcp_toolset import (
+            MCPToolset,
+            StdioConnectionParams,
+            StdioServerParameters,
+        )
+        conn = StdioConnectionParams(
+            server_params=StdioServerParameters(
+                command="npx",
+                args=["-y", "mongodb-mcp-server@latest", "--readOnly"],
+                env={"MDB_MCP_CONNECTION_STRING": uri},
+            ),
+            timeout=30.0,
+        )
+        return MCPToolset(connection_params=conn)
     except Exception as e:  # noqa: BLE001 - never let MCP break the agent
         print(f"[mcp] Could not build MongoDB MCP toolset ({e}). "
               "Falling back to PyMongo tools only.", file=sys.stderr)
