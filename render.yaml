@@ -1,0 +1,28 @@
+# Render Blueprint for the Scout.AI Coach Console (FastAPI + static frontend).
+# Deploy: push this repo to GitHub, then in Render -> "New +" -> "Blueprint"
+# and point it at the repo. Render reads this file and provisions the service.
+# Fill the secret env vars (sync: false) in the Render dashboard after the first
+# deploy — they are intentionally NOT stored in git.
+services:
+  - type: web
+    name: scout-ai
+    runtime: python
+    plan: free
+    # Repo root IS ScoutAI-2026, so paths are relative to this file.
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn agent.server:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/status
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: SCOUT_DB_NAME
+        value: scoutai
+      - key: GEMINI_MODEL
+        value: gemini-2.0-flash
+      - key: ENABLE_MONGODB_MCP
+        value: "false"
+      # Secrets — set these in the Render dashboard (never commit real values).
+      - key: MONGODB_URI
+        sync: false
+      - key: GOOGLE_API_KEY
+        sync: false

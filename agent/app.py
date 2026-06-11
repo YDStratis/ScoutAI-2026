@@ -1,4 +1,11 @@
-"""Scout.AI — ADK Coach Agent dashboard (Streamlit).
+"""Scout.AI — ADK Coach Agent dashboard (Streamlit · LEGACY).
+
+NOTE: The dashboard has moved to a FastAPI backend + static frontend
+(`agent/server.py` + `agent/static/`). Run it with:
+    cd agent && uvicorn server:app --reload --port 8000   # then open http://localhost:8000
+This Streamlit version is kept as a working fallback but is no longer the
+primary UI. Both front ends share the same backend via frontend_adapter.
+
 
 A coach-facing tactical console for World Cup 2026. It reads REAL BALLDONTLIE
 data from MongoDB Atlas through the deterministic backend tools

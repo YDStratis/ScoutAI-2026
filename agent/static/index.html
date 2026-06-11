@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Scout.AI · Coach Console</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><text y='14' font-size='14'>⚽</text></svg>" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <div class="scout-header">
+      <div class="scout-id">
+        <div class="logo">SCOUT<b>.AI</b></div>
+        <div class="sub">ADK Coach Agent · World Cup 2026</div>
+      </div>
+      <div class="scout-badges" id="badges"></div>
+    </div>
+
+    <div id="boot" class="notice info"><span class="spinner"></span>Connecting to backend…</div>
+
+    <!-- App (revealed once teams load) -->
+    <div id="app" style="display:none">
+      <!-- Control bar -->
+      <div class="controls">
+        <div class="field">
+          <label for="team">Your National Team</label>
+          <select id="team"></select>
+        </div>
+        <div class="field">
+          <label for="opponent">Opponent</label>
+          <select id="opponent"></select>
+        </div>
+        <div class="field">
+          <label for="formation">Formation</label>
+          <select id="formation"></select>
+        </div>
+        <div class="field">
+          <label for="goal">Match context / goal</label>
+          <input type="text" id="goal"
+                 value="Knockout match — find our weak link and the best shape." />
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="primary" id="loadBtn">⚡ Load Tactical Analysis</button>
+        <button id="optimizeBtn">◎ Optimize Formation</button>
+        <button id="saveBtn" disabled>⬇ Save Recommendation</button>
+      </div>
+
+      <div id="results"></div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

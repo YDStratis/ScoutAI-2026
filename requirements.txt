@@ -6,6 +6,7 @@ requests==2.32.3
 # Scout.AI Coach Agent (agent/)
 google-adk
 google-genai
-streamlit
+fastapi
+uvicorn[standard]
 pandas
 mcp
